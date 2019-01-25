@@ -1,6 +1,8 @@
 package com.example.jyang.navigationdrawer;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -17,24 +19,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static final int REQUEST_IMAGE_CAPTURE = 1;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
+    private FloatingActionButton floatingActionButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        //mTabLayout = (TabLayout) findViewById(R.id.tabs);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mTabLayout = (TabLayout) findViewById(R.id.tabs);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //setupViewPager(mViewPager);
-        //mTabLayout.setupWithViewPager(mViewPager);
+        getSupportActionBar().setTitle("Home");
+        setupViewPager(mViewPager);
+        mTabLayout.setupWithViewPager(mViewPager);
+        setTabLayoutListener(mViewPager);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -44,26 +52,62 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dispatchTakePictureIntent();
+            }
+        });
+
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
     }
 
     @Override
     public void onBackPressed() {
-        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }*/
+        }
+    }
+
+    private void setTabLayoutListener(final  ViewPager viewPager) {
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Toast.makeText(getApplicationContext(), "Seleccionado -> " + tab.getText(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                Toast.makeText(getApplicationContext(), "Anterior -> " + tab.getText(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                Toast.makeText(getApplicationContext(), "Reseleccionado -> " + tab.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new DummyFragment(), "TAB ONE");
+        adapter.addFragment(new FirstTabFragment(), "TAB ONE");
         adapter.addFragment(new DummyFragment(), "TAB TWO");
         adapter.addFragment(new DummyFragment(), "TAB THREE");
         adapter.addFragment(new DummyFragment(), "TAB 4");
         adapter.addFragment(new DummyFragment(), "TAB 5");
         viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,11 +136,15 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            Intent intent = new Intent(this, SegundaActivity.class);
+            //EditText editText = (EditText) findViewById(R.id.editText);
+            //String message = editText.getText().toString();
+            //intent.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -107,8 +155,8 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);*/
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
