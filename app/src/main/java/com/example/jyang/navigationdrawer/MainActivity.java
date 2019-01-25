@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity
                         });
                         break;
                     default:
+                        floatingActionButton.show();
                         floatingActionButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_menu_camera));
                         floatingActionButton.setOnClickListener(new View.OnClickListener() {
                             @Override
