@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -84,6 +85,27 @@ public class MainActivity extends AppCompatActivity
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 4:
+                        floatingActionButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.ic_menu_mylocation));
+                        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        });
+                        break;
+                    default:
+                        floatingActionButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_menu_camera));
+                        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                dispatchTakePictureIntent();
+                            }
+                        });
+                        break;
+                }
                 Toast.makeText(getApplicationContext(), "Seleccionado -> " + tab.getText(), Toast.LENGTH_SHORT).show();
             }
 
@@ -105,7 +127,8 @@ public class MainActivity extends AppCompatActivity
         adapter.addFragment(new DummyFragment(), "TAB TWO");
         adapter.addFragment(new DummyFragment(), "TAB THREE");
         adapter.addFragment(new DummyFragment(), "TAB 4");
-        adapter.addFragment(new DummyFragment(), "TAB 5");
+        adapter.addFragment(new MapFragment(), "MAP");
+        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
     }
