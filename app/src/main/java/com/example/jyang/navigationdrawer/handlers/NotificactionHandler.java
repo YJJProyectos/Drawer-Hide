@@ -5,7 +5,12 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
+
+import com.example.jyang.navigationdrawer.R;
 
 public class NotificactionHandler extends ContextWrapper {
 
@@ -34,6 +39,19 @@ public class NotificactionHandler extends ContextWrapper {
             // crear channel
             NotificationChannel highChannel = new NotificationChannel(
                     CHANNEL_HIGH_ID, CHANNEL_HIGH_NAME, NotificationManager.IMPORTANCE_HIGH);
+
+            // EXTRA CONFIG
+            highChannel.enableLights(true);
+            highChannel.setLightColor(Color.YELLOW);
+            highChannel.setShowBadge(true);
+            highChannel.enableVibration(true);
+            //highChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 100});
+            highChannel.setLockscreenVisibility(Notification.VISIBILITY_SECRET);
+            //Uri defaultSoundUri = RingtoneManager.getDefaultUri((RingtoneManager.TYPE_NOTIFICATION));
+            //highChannel.setSound(defaultSoundUri, null);
+
+
+
             NotificationChannel lowChannel = new NotificationChannel(
                     CHANNEL_LOW_ID, CHANNEL_LOW_NAME, NotificationManager.IMPORTANCE_LOW);
             getManager().createNotificationChannel(highChannel);
@@ -41,7 +59,7 @@ public class NotificactionHandler extends ContextWrapper {
         }
     }
 
-    private Notification.Builder createNotification(String title, String message, boolean isHighImportance) {
+    public Notification.Builder createNotification(String title, String message, boolean isHighImportance) {
         if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if ( isHighImportance ) {
                 return this.createNotificationWithChannel(title, message, CHANNEL_HIGH_ID);
@@ -56,6 +74,7 @@ public class NotificactionHandler extends ContextWrapper {
             return new Notification.Builder(getApplicationContext(), channelId)
                     .setContentTitle(title)
                     .setContentText(message)
+                    .setColor(getColor(R.color.colorPrimary))
                     .setSmallIcon(android.R.drawable.stat_notify_chat)
                     .setAutoCancel(true);
         }

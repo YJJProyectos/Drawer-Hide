@@ -14,6 +14,8 @@
     <string name="enviar_notificacion">Send notification</string>
     <string name="notificacion_titulo">Notification title</string>
     <string name="notificacion_mensaje">Notification message</string>
+    <string name="notificacion_switch_baja">Low</string>
+    <string name="notificacion_switch_alta">High</string>
 
     <string name="first_tab_fragment">Primer</string>
     <string name="google_maps_key">AIzaSyCNdj9OjyXAKGT6IAFN0-AT11csbDVt1SA</string>
