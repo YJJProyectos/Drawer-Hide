@@ -1,11 +1,14 @@
-package com.example.jyang.navigationdrawer;
+package com.example.jyang.navigationdrawer.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -22,6 +25,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.jyang.navigationdrawer.DummyFragment;
+import com.example.jyang.navigationdrawer.FirstTabFragment;
+import com.example.jyang.navigationdrawer.MapFragment;
+import com.example.jyang.navigationdrawer.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private FloatingActionButton floatingActionButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +49,7 @@ public class MainActivity extends AppCompatActivity
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Home");
+        getSupportActionBar().setTitle(R.string.pantalla_principal);
         setupViewPager(mViewPager);
         mTabLayout.setupWithViewPager(mViewPager);
         setTabLayoutListener(mViewPager);
@@ -81,7 +90,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void setTabLayoutListener(final  ViewPager viewPager) {
+    private void setTabLayoutListener(final ViewPager viewPager) {
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -133,6 +142,7 @@ public class MainActivity extends AppCompatActivity
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -149,6 +159,26 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(this, "READ EXTERNAL", Toast.LENGTH_SHORT).show();
+            final String[] PERMISSIONS_EXTERNAL = {Manifest.permission.READ_EXTERNAL_STORAGE};
+            //Asking request Permissions
+            ActivityCompat.requestPermissions(this, PERMISSIONS_EXTERNAL, 3);
+            return true;
+        } else if (id == R.id.action_telefono) {
+            if (ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                //Creating intents for making a call
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:123456789"));
+                startActivity(callIntent);
+
+            }else{
+                Toast.makeText(this, "You don't assign permission.", Toast.LENGTH_SHORT).show();
+                final String[] PERMISSIONS_CALL = {Manifest.permission.CALL_PHONE};
+                //Asking request Permissions
+                ActivityCompat.requestPermissions(this, PERMISSIONS_CALL, 9);
+            }
+
             return true;
         }
 
@@ -177,7 +207,11 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
             finish();
         } else if (id == R.id.nav_manage) {
-
+            Intent intent = new Intent(this, CuartaActivity.class);
+            //EditText editText = (EditText) findViewById(R.id.editText);
+            //String message = editText.getText().toString();
+            //intent.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

@@ -1,24 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Navigation Drawer</string>
-    <string name="pantalla_principal">Home</string>
-    <string name="segunda_pantalla">Second</string>
-    <string name="tercera_pantalla">Third</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="app_name">LALALA</string>
+    <string name="pantalla_principal">Principal</string>
+    <string name="segunda_pantalla">Segunda</string>
+    <string name="tercera_pantalla">Tercera</string>
+    <string name="navigation_drawer_open">Abrir navigacion drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_telefono">Telephone</string>
-    <string name="action_menu">Menu</string>
-    <string name="enviar_notificacion">Send notification</string>
-    <string name="notificacion_titulo">Notification title</string>
-    <string name="notificacion_mensaje">Notification message</string>
-
+    <string name="nav_header_title">Android Studio Español</string>
+    <string name="nav_header_subtitle">android.studio.español@android.com</string>
+    <string name="nav_header_desc">Encabezado navegacion</string>
+    <string name="action_settings">Configuracion</string>
+    <string name="action_telefono">Telefono</string>
+    <string name="enviar_notificacion">Enviar notificacion</string>
+    <string name="notificacion_titulo">Titulo notificacion</string>
+    <string name="notificacion_mensaje">Mensaje Notificacion</string>
     <string name="first_tab_fragment">Primer</string>
     <string name="google_maps_key">AIzaSyCNdj9OjyXAKGT6IAFN0-AT11csbDVt1SA</string>
     <string name="long_random_text">Setteweawkewaejwak jawkje awje awjj ewae jawe wah ehwahhe gwahegwa egawyeg wyae yasgec aye aw yewayeg wyae gwayegwayegwyegwayegwayewgayewgay gwaye gwaegwayeg waye gwayuegwayegwaegwqyegg geee2 e2gygyu2g3yu222 gey2wgyuaheuawgbceyawyceg wyucehwaucehwaucehwmacwaceiwaoeiowakepowkeowkeowpkewopekwopekwkeoqpwkeoqwkeowkeowqkeowqekowqekowqekoqwekwqokewaekwanednsjdnsajdasudhsauieqwyu3euiqhh3332jb3hj2b4h3v4h32b432b4j32b4j32kb432j4b32j4b3j24n32j4b3j44jjjjj3j4b3j4j343jh42uh4u32h4ui324324y234v 23432 c4324hu32xh432 hx3j2hx4j34xh 4j32h432g432y4g23u432 y3 432 443y24ge32 3232y4eghh3 yweehgrr h3g4re3y yru3 gy 32ge3gt432g4y3 43ings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Hola hola</string>
 </resources>

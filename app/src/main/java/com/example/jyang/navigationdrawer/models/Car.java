@@ -1,4 +1,4 @@
-package com.example.jyang.navigationdrawer.model;
+package com.example.jyang.navigationdrawer.models;
 
 public class Car {
     private int VIN;
