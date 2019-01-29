@@ -81,9 +81,6 @@ public class CuartaActivity extends AppCompatActivity {
             Notification.Builder nb = notificactionHandler.createNotification(titulo, mensaje, isHighImportance);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 nb.setColor(getColor(R.color.colorPrimary));
-                if ( isHighImportance ) {
-                    nb.setPriority(Notification.PRIORITY_HIGH);
-                }
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 notificactionHandler.getManager().notify(1, nb.build());
