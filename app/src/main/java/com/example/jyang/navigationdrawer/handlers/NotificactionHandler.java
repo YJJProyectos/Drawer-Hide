@@ -25,6 +25,9 @@ public class NotificactionHandler extends ContextWrapper {
     public static final String CHANNEL_LOW_ID = "2";
     private final String CHANNEL_LOW_NAME = "LOW CHANNEL";
 
+    private  final int SUMMARY_GROUP_ID = 1001;
+    private final String SUMMARY_GROUP_NAME = "GROUPING_NOTIFICATION";
+
     public NotificactionHandler(Context base) {
         super(base);
         createChannel();
@@ -94,6 +97,7 @@ public class NotificactionHandler extends ContextWrapper {
                     .setColor(getColor(R.color.colorPrimary))
                     .setSmallIcon(android.R.drawable.stat_notify_chat)
                     .setShowWhen(true)
+                    .setGroup(SUMMARY_GROUP_NAME)
                     .setLargeIcon(Icon.createWithResource(this, R.drawable.ic_notification))
                     .setAutoCancel(true);
         }
@@ -120,15 +124,55 @@ public class NotificactionHandler extends ContextWrapper {
             nb.setDefaults(Notification.DEFAULT_ALL);
         }
         Notification.Action action = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             action = new Notification.Action.Builder(
                     Icon.createWithResource(this, android.R.drawable.ic_menu_send),
                     getString(R.string.notificacion_mensaje_pop),
                     pIntent).build();
             nb.addAction(action);
-            nb.setShowWhen(true);
+            nb.setColor(getColor(R.color.colorPrimary));
             nb.setLargeIcon(Icon.createWithResource(this, R.drawable.ic_notification));
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            nb.setGroup(SUMMARY_GROUP_NAME);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            nb.setShowWhen(true);
+        }
         return nb;
+    }
+
+    public void publishNotificationSummaryGroup(boolean isHighImportance) {
+        Intent intent = new Intent(this, NotificacionReciboActivity.class);
+        intent.putExtra("titulo", "TEST");
+        intent.putExtra("mensaje", "TESTSTST");
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        Notification summaryNotification = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = (isHighImportance) ? CHANNEL_HIGH_ID : CHANNEL_LOW_ID;
+            Notification summaryNotificationC = new Notification.Builder(getApplicationContext(), channelId)
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setGroup(SUMMARY_GROUP_NAME)
+                    .setGroupSummary(true)
+                    .setContentIntent(pIntent)
+                    .setAutoCancel(true)
+                    .build();
+            getManager().notify(SUMMARY_GROUP_ID, summaryNotificationC);
+        } else
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            Notification.Builder nb = new Notification.Builder(getApplicationContext())
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setGroup(SUMMARY_GROUP_NAME)
+                    .setAutoCancel(true)
+                    .setContentIntent(pIntent)
+                    .setGroupSummary(true);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                nb.setColor(getColor(R.color.colorPrimary));
+            }
+            summaryNotification = nb.build();
+        }
+        getManager().notify(SUMMARY_GROUP_ID, summaryNotification);
     }
 }

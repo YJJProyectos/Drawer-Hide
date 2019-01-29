@@ -35,6 +35,8 @@ public class CuartaActivity extends AppCompatActivity {
 
     private NotificactionHandler notificactionHandler;
 
+    private int counter = 0; // para agrupar
+
     private boolean isHighImportance = false;
 
     @Override
@@ -79,11 +81,12 @@ public class CuartaActivity extends AppCompatActivity {
 
         if (!TextUtils.isEmpty(titulo) && !TextUtils.isEmpty(mensaje)) {
             Notification.Builder nb = notificactionHandler.createNotification(titulo, mensaje, isHighImportance);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 nb.setColor(getColor(R.color.colorPrimary));
-            }
+            }*/
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                notificactionHandler.getManager().notify(1, nb.build());
+                notificactionHandler.getManager().notify(++counter, nb.build());
+                notificactionHandler.publishNotificationSummaryGroup(isHighImportance);
             }
         }
     }
