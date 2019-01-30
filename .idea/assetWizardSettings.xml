@@ -34,7 +34,8 @@
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\jyang\Desktop\navigation-drawer-icon-png-3.png" />
+                                      <entry key="imageAsset" value="C:\Users\jyang\Downloads\plus.png" />
+                                      <entry key="outputName" value="ic_add_fab" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -56,7 +57,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
+                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
                           </map>
                         </option>
                       </PersistentState>

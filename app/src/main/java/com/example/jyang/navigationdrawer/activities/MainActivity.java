@@ -213,7 +213,11 @@ public class MainActivity extends AppCompatActivity
             //intent.putExtra(EXTRA_MESSAGE, message);
             startActivity(intent);
         } else if (id == R.id.nav_share) {
-
+            Intent intent = new Intent(this, RealmActivity.class);
+            //EditText editText = (EditText) findViewById(R.id.editText);
+            //String message = editText.getText().toString();
+            //intent.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intent);
         } else if (id == R.id.nav_send) {
 
         }

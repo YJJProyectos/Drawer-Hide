@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
+        android:name=".app.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -40,7 +41,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".activities.CuartaActivity" />
-        <activity android:name=".activities.NotificacionReciboActivity"></activity>
+        <activity android:name=".activities.NotificacionReciboActivity" />
+        <activity android:name=".activities.RealmActivity"></activity>
     </application>
 
 </manifest>
