@@ -8,33 +8,34 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.jyang.navigationdrawer.R;
-import com.example.jyang.navigationdrawer.models.Board;
+import com.example.jyang.navigationdrawer.models.Note;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.zip.Inflater;
 
-public class BoardAdapter extends BaseAdapter {
+public class NoteAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Board> boards;
+    private List<Note> notes;
     private int layout;
 
 
-    public BoardAdapter(Context context, List<Board> boards, int layout) {
+    public NoteAdapter(Context context, List<Note> notes, int layout) {
         this.context = context;
-        this.boards = boards;
+        this.notes  = notes;
         this.layout = layout;
     }
 
     @Override
     public int getCount() {
-        return boards.size();
+        return notes.size();
     }
 
     @Override
-    public Board getItem(int position) {
-        return boards.get(position);
+    public Note getItem(int position) {
+        return notes.get(position);
     }
 
     @Override
@@ -44,34 +45,32 @@ public class BoardAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+
         ViewHolder vh;
+
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(layout, null);
             vh = new ViewHolder();
-            vh.title = (TextView) convertView.findViewById(R.id.textViewBoardTitle);
-            vh.notes = (TextView) convertView.findViewById(R.id.textViewBoardNote);
-            vh.createdAt = (TextView) convertView.findViewById(R.id.textViewBoardDate);
+            vh.description = (TextView) convertView.findViewById(R.id.textViewNoteDescription);
+            vh.createdAt = (TextView) convertView.findViewById(R.id.textViewNoteCreatedAt);
             convertView.setTag(vh);
         } else {
             vh = (ViewHolder) convertView.getTag();
         }
 
-        Board board = boards.get(position);
-        vh.title.setText(board.getTitle());
-        int numberOfNotes = board.getNotes().size();
-        String textForNotes = (numberOfNotes == 1) ? numberOfNotes + " Note":  numberOfNotes + " Notes";
-        vh.notes.setText(textForNotes);
+        Note note = notes.get(position);
+        vh.description.setText(note.getDescription());
+
 
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String created = df.format(board.getCreatedAt());
-
+        String created = df.format(note.getCreatedAt());
         vh.createdAt.setText(created);
         return convertView;
     }
 
     public class ViewHolder {
-        TextView title;
-        TextView notes;
+        TextView description;
         TextView createdAt;
     }
 }

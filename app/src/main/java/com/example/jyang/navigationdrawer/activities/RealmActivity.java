@@ -1,6 +1,7 @@
 package com.example.jyang.navigationdrawer.activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,9 +23,10 @@ import com.example.jyang.navigationdrawer.models.Note;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
-public class RealmActivity extends AppCompatActivity {
+public class RealmActivity extends AppCompatActivity implements RealmChangeListener<RealmResults<Board>>{
 
 
     @BindView(R.id.fabAddBoard)
@@ -53,9 +56,19 @@ public class RealmActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
 
         boards = realm.where(Board.class).findAll();
+        boards.addChangeListener(this);
         listView = (ListView) findViewById(R.id.listViewBoard);
         adapter = new BoardAdapter(this, boards, R.layout.list_view_board_item);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(RealmActivity.this, NoteActivity.class);
+                intent.putExtra("id", boards.get(position).getId());
+                startActivity(intent);
+            }
+        });
     }
     public boolean onOptionsItemSelected(MenuItem item){
         Log.d("item menu", item.toString());
@@ -108,4 +121,8 @@ public class RealmActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onChange(RealmResults<Board> boards) {
+        adapter.notifyDataSetChanged();
+    }
 }

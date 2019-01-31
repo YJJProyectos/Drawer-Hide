@@ -42,7 +42,8 @@
 
         <activity android:name=".activities.CuartaActivity" />
         <activity android:name=".activities.NotificacionReciboActivity" />
-        <activity android:name=".activities.RealmActivity"></activity>
+        <activity android:name=".activities.RealmActivity" />
+        <activity android:name=".activities.NoteActivity"></activity>
     </application>
 
 </manifest>
