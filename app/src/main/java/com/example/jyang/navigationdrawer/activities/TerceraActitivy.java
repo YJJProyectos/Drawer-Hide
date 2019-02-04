@@ -16,7 +16,7 @@ import android.widget.ListView;
 import com.example.jyang.navigationdrawer.R;
 import com.example.jyang.navigationdrawer.adapter.MyAdapter;
 import com.example.jyang.navigationdrawer.database.CarsSQLiteHelper;
-import com.example.jyang.navigationdrawer.models.Car;
+import com.example.jyang.navigationdrawer.models.Town;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class TerceraActitivy extends AppCompatActivity implements NavigationView
     private SQLiteDatabase db;
     private ListView listView;
     private MyAdapter adapter;
-    private List<Car> cars;
+    private List<Town> towns;
     private List<String> nombres;
 
     @Override

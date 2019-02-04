@@ -29,6 +29,7 @@ import com.example.jyang.navigationdrawer.DummyFragment;
 import com.example.jyang.navigationdrawer.FirstTabFragment;
 import com.example.jyang.navigationdrawer.MapFragment;
 import com.example.jyang.navigationdrawer.R;
+import com.example.jyang.navigationdrawer.SecondTabFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new FirstTabFragment(), "TAB ONE");
-        adapter.addFragment(new DummyFragment(), "TAB TWO");
+        adapter.addFragment(new SecondTabFragment(), "TAB TWO");
         adapter.addFragment(new DummyFragment(), "TAB THREE");
         adapter.addFragment(new DummyFragment(), "TAB 4");
         adapter.addFragment(new MapFragment(), "MAP");
