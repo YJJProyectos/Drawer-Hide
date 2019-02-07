@@ -34,8 +34,8 @@
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\jyang\Downloads\plus.png" />
-                                      <entry key="outputName" value="ic_add_fab" />
+                                      <entry key="imageAsset" value="C:\Users\jyang\Pictures\android wallpaper.jpg" />
+                                      <entry key="outputName" value="background_1" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -2,6 +2,7 @@ package com.example.jyang.navigationdrawer.activities;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -63,7 +66,11 @@ public class TerceraActitivy extends AppCompatActivity implements NavigationView
 
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
-
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window w = getWindow();
+            //w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

@@ -6,8 +6,11 @@ import android.app.PendingIntent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -43,6 +46,8 @@ public class CuartaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cuarta);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Cuarta");
         ButterKnife.bind(this);
@@ -53,6 +58,11 @@ public class CuartaActivity extends AppCompatActivity {
             }
         }); */
         notificactionHandler = new NotificactionHandler(this);
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window w = getWindow();
+            //w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
     }
     public boolean onOptionsItemSelected(MenuItem item){
         super.onBackPressed();

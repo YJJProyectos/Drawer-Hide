@@ -2,6 +2,7 @@ package com.example.jyang.navigationdrawer.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -71,6 +74,12 @@ public class RealmActivity extends AppCompatActivity implements RealmChangeListe
                 startActivity(intent);
             }
         });
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window w = getWindow();
+            //w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
     }
     public boolean onOptionsItemSelected(MenuItem item){
         Log.d("item menu", item.toString());
